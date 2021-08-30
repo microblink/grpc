@@ -71,6 +71,7 @@ elseif(gRPC_PROTOBUF_PROVIDER STREQUAL "package")
       set(_gRPC_PROTOBUF_PROTOC_LIBRARIES protobuf::libprotoc)
       # extract the include dir from target's properties
       get_target_property(_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR protobuf::libprotoc INTERFACE_INCLUDE_DIRECTORIES)
+      string( REPLACE ";" "" _gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR "${_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR}" )
     else()
       set(_gRPC_PROTOBUF_PROTOC_LIBRARIES ${PROTOBUF_PROTOC_LIBRARIES})
       set(_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR ${PROTOBUF_INCLUDE_DIRS})
