@@ -67,6 +67,12 @@ elseif(gRPC_PROTOBUF_PROVIDER STREQUAL "package")
       set(_gRPC_PROTOBUF_PROTOC_LIBRARIES protobuf::libprotoc)
       # extract the include dir from target's properties
       get_target_property(_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR protobuf::libprotoc INTERFACE_INCLUDE_DIRECTORIES)
+
+      # MB patch begin
+      # conan's protobuf::libprotoc returns a list of include paths, for each configuration
+      # later build stages of gRPC expect a single string in this variable
+      string( REPLACE ";" "" _gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR "${_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR}" )
+      # MB patch end
     else()
       set(_gRPC_PROTOBUF_PROTOC_LIBRARIES ${PROTOBUF_PROTOC_LIBRARIES})
       set(_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR ${PROTOBUF_INCLUDE_DIRS})
