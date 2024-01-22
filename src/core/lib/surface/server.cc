@@ -248,7 +248,6 @@ struct Server::RegisteredMethod {
   std::unique_ptr<RequestMatcherInterface> matcher;
 };
 
-
 // The RealRequestMatcher is an implementation of RequestMatcherInterface that
 // actually uses all the features of RequestMatcherInterface: expecting the
 // application to explicitly request RPCs and then matching those to incoming
