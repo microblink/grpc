@@ -78,6 +78,11 @@ elseif(gRPC_PROTOBUF_PROVIDER STREQUAL "package")
     endif()
     # Well-known proto files are expected to be in the Protobuf include directory.
     get_target_property(_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR ${_gRPC_PROTOBUF_LIBRARIES} INTERFACE_INCLUDE_DIRECTORIES)
+    # MB patch begin
+    # conan's protobuf::libprotoc returns a list of include paths, for each configuration
+    # later build stages of gRPC expect a single string in this variable
+    string( REPLACE ";" "" _gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR "${_gRPC_PROTOBUF_WELLKNOWN_INCLUDE_DIR}" )
+    # MB patch end
     if(TARGET protobuf::protoc)
       set(_gRPC_PROTOBUF_PROTOC protobuf::protoc)
       if(CMAKE_CROSSCOMPILING)
